@@ -1,0 +1,67 @@
+Neo4j Commands
+
+// Following 2 commands are used to create Movie nodes.
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/khomsun2013/ADB/main/IMDB-Movie-Data.csv" AS row
+WITH row.Ids AS i, row.Title AS t, row.Description AS d, row.Year AS y, row.Runtime AS r, row.Rating AS rt, row.Votes AS v, row.Revenue AS rv
+WHERE rv IS NOT NULL
+MERGE (:Movie{ids:i, title:t, description:d, year:y, runtime:r, rating:rt, votes: v, revenue:rv})
+
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/khomsun2013/ADB/main/IMDB-Movie-Data.csv" AS row
+WITH row.Ids AS i, row.Title AS t, row.Description AS d, row.Year AS y, row.Runtime AS r, row.Rating AS rt, row.Votes AS v, row.Revenue AS rv
+WHERE rv IS NULL
+MERGE (m:Movie{ids:i, title:t, description:d, year:y, runtime:r, rating:rt, votes: v})
+ON CREATE SET m.revenue = NULL 
+
+// The below command is used to create Person nodes containing all the Actors names
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/khomsun2013/ADB/main/IMDB-Movie-Data.csv" AS row
+WITH row.Ids AS t, SPLIT(row.Actors,',') AS a
+UNWIND t AS t1
+UNWIND a AS a1
+WITH *, trim(a1) AS a2
+MERGE (:Person{name:a2})
+WITH *
+MATCH(mo:Movie{ids:t1}),(ac:Person{name:a2})
+MERGE (ac)-[:ACTED_IN]->(mo)
+RETURN ac, mo
+
+// The below command is used to create Person nodes containing all the Director names
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/khomsun2013/ADB/main/IMDB-Movie-Data.csv" AS row
+WITH row.Ids AS t, SPLIT(row.Director,',') AS a
+UNWIND t AS t1
+UNWIND a AS a1
+WITH *, trim(a1) AS a2
+MERGE (:Person{name:a2})
+WITH *
+MATCH(mo:Movie{ids:t1}),(ac:Person{name:a2})
+MERGE (ac)-[:DIRECTED]->(mo)
+RETURN ac, mo
+
+// The below command is used to create Genre nodes containing all the genres
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/khomsun2013/ADB/main/IMDB-Movie-Data.csv" AS row
+WITH row.Ids AS t, SPLIT(row.Genre,',') AS a
+UNWIND t AS t1
+UNWIND a AS a1
+WITH *, trim(a1) AS a2
+MERGE (:Genre{type:a2})
+WITH *
+MATCH(mo:Movie{ids:t1}),(ac:Genre{type:a2})
+MERGE (mo)-[:IN]->(ac)
+RETURN ac, mo
+
+
+//To View Genre node 
+MATCH (n {type: 'Crime'})-[r]-()
+RETURN n, r
+
+//To View Movie node
+MATCH (n {Title: 'Horrible Bosses'})-[r]-()
+RETURN n, r
+
+//TO DELETE ALL NODES AND RELATIONS
+MATCH (n) DETACH DELETE n
+

@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "d8e5e162-b1ab-4dce-b178-0453fbe65972",
+		"name": "Programming Assignment 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15637985"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/imdb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:8000/imdb"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/imdb/fname?title=Trainwreck",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/imdb/fname?title=Trainwreck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"imdb",
+						"fname"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Trainwreck"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/imdb/fname?title=Bahubali",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/imdb/fname?title=Bahubali",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"imdb",
+						"fname"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Bahubali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/imdb",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"ids\": 1001,\n   \"title\": \"Bahubali\",\n   \"genre\": \"Adventure,Mystery,Sci-Fi\",\n   \"description\": \"Following clues to the origin of mankind, a team finds a structure on a distant moon, but they soon realize they are not alone.\",\n   \"director\": \"Rajamouli\",\n   \"actors\": \"Prabhas, Rana, Michael Fassbender, Charlize Theron\",\n   \"year\": 2012,\n   \"runtime\": 124,\n   \"rating\": 7,\n   \"votes\": 485820,\n   \"revenue\": 126.46\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/imdb"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/imdb/fname?title=Bahubali%20begining",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\" : \"Bahubali\",\n   \"rating\": 1\n\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/imdb/fname?title=Bahubali%20begining",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"imdb",
+						"fname"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Bahubali%20begining"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
